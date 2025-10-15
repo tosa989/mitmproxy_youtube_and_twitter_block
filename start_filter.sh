@@ -16,10 +16,13 @@ echo "✅ プロキシを有効化しました"
 echo ""
 echo "📋 現在のフィルター設定:"
 echo "   - YouTube: 特定チャンネルのみ許可"
+echo "   - Google APIs: バイパス（gcloudコマンドが動作します）"
 echo ""
 echo "🔍 フィルターを起動中..."
 echo "   (終了するには 'q' を押してください)"
 echo ""
 
-# mitmproxyを起動（filter.pyを使用）
-mitmproxy -s filter.py -p 8080 --set console_mouse=false
+# mitmproxyを起動（filter.pyを使用 + Google APIをバイパス）
+mitmproxy -s filter.py -p 8080 \
+  --set console_mouse=false \
+  --set ignore_hosts='^.*\.googleapis\.com$|^.*\.google\.com$|^.*\.gstatic\.com$|^accounts\.google\.com$|^oauth2\.googleapis\.com$|^.*\.googleusercontent\.com$|^.*\.cloudfunctions\.net$'
